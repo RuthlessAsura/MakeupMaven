@@ -110,7 +110,10 @@ export default function Home() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: z.infer<typeof contactFormSchema>) => {
-      return apiRequest("POST", "/api/contact", data);
+      return apiRequest("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data)
+      });
     },
     onSuccess: () => {
       toast({

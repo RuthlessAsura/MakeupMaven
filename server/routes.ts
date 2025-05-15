@@ -10,8 +10,12 @@ import adminRoutes from './routes/admin';
 import contentRoutes from './routes/content';
 import portfolioRoutes from './routes/portfolio';
 import servicesRoutes from './routes/services';
+import { initializeWebsiteData } from './initData';
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize website data
+  await initializeWebsiteData();
+  
   // Register API routes
   app.use('/api/admin', adminRoutes);
   app.use('/api/content', contentRoutes);
