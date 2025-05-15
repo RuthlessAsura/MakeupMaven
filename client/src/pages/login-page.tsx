@@ -33,7 +33,10 @@ export default function LoginPage() {
     mutationFn: async (credentials: z.infer<typeof loginSchema>) => {
       setLoading(true);
       try {
-        const res = await apiRequest("POST", "/api/auth/login", credentials);
+        const res = await apiRequest("/api/auth/login", { 
+          method: "POST", 
+          body: JSON.stringify(credentials) 
+        });
         const data = await res.json();
         return data;
       } finally {
