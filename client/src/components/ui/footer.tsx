@@ -1,4 +1,5 @@
 import { FaInstagram, FaFacebookF, FaPinterest, FaYoutube } from "react-icons/fa";
+import { Map } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -6,10 +7,13 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
-            <a href="#" className="text-2xl font-playfair font-bold text-primary">
-              Elena Rose
+            <a href="#" className="text-2xl font-bold text-primary">
+              Sarah Condrea
             </a>
             <p className="mt-2 text-gray-400">Makeup Artist & Beauty Specialist</p>
+            <p className="mt-1 text-gray-400 flex items-center">
+              <Map className="h-4 w-4 mr-1" /> Barlad, Romania
+            </p>
           </div>
           
           <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8 text-center md:text-left">
