@@ -79,6 +79,11 @@ export default function Home() {
     queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
   });
   
+  const { data: testimonialsContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ['/api/content/testimonials'],
+    queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
+  });
+  
   const { data: contactContent = [] } = useQuery<SiteContent[]>({
     queryKey: ['/api/content/contact'],
     queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
@@ -473,30 +478,34 @@ export default function Home() {
           <div className="container mx-auto px-6">
             <div className="flex flex-col lg:flex-row items-center gap-12">
               <div className="lg:w-1/2 order-2 lg:order-1">
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-gray-900 dark:text-white scroll-reveal">About Elena</h2>
+                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-gray-900 dark:text-white scroll-reveal">
+                  {getContentValue(aboutContent, 'title', 'About Sarah')}
+                </h2>
                 <div className="space-y-4 text-gray-600 dark:text-gray-300">
-                  <p className="scroll-reveal">With over 8 years of experience in the beauty industry, I specialize in creating looks that enhance natural beauty while achieving the perfect style for any occasion.</p>
-                  <p className="scroll-reveal">My approach combines technical expertise with artistic vision, ensuring each client receives a personalized experience that makes them look and feel their absolute best.</p>
-                  <p className="scroll-reveal">I've trained with leading makeup artists in New York and Paris, and my work has been featured in several fashion magazines and runway shows.</p>
+                  <p className="scroll-reveal">{getContentValue(aboutContent, 'paragraph1', 'With over 8 years of experience in the beauty industry, I specialize in creating looks that enhance natural beauty while achieving the perfect style for any occasion.')}</p>
+                  <p className="scroll-reveal">{getContentValue(aboutContent, 'paragraph2', 'My approach combines technical expertise with artistic vision, ensuring each client receives a personalized experience that makes them look and feel their absolute best.')}</p>
+                  <p className="scroll-reveal">{getContentValue(aboutContent, 'paragraph3', 'I\'ve trained with leading makeup artists in New York and Paris, and my work has been featured in several fashion magazines and runway shows.')}</p>
                 </div>
                 <div className="mt-8 scroll-reveal">
-                  <h3 className="font-playfair text-xl font-semibold mb-4 text-gray-900 dark:text-white">Professional Background</h3>
+                  <h3 className="font-playfair text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                    {getContentValue(aboutContent, 'background_title', 'Professional Background')}
+                  </h3>
                   <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                     <li className="flex items-center">
                       <Check className="text-primary mr-2 h-5 w-5" />
-                      <span>Certified Professional Makeup Artist</span>
+                      <span>{getContentValue(aboutContent, 'credential1', 'Certified Professional Makeup Artist')}</span>
                     </li>
                     <li className="flex items-center">
                       <Check className="text-primary mr-2 h-5 w-5" />
-                      <span>Fashion Week Experience (NYC, London)</span>
+                      <span>{getContentValue(aboutContent, 'credential2', 'Fashion Week Experience (NYC, London)')}</span>
                     </li>
                     <li className="flex items-center">
                       <Check className="text-primary mr-2 h-5 w-5" />
-                      <span>Celebrity Client Portfolio</span>
+                      <span>{getContentValue(aboutContent, 'credential3', 'Celebrity Client Portfolio')}</span>
                     </li>
                     <li className="flex items-center">
                       <Check className="text-primary mr-2 h-5 w-5" />
-                      <span>Advanced Color Theory Specialist</span>
+                      <span>{getContentValue(aboutContent, 'credential4', 'Advanced Color Theory Specialist')}</span>
                     </li>
                   </ul>
                 </div>
@@ -504,8 +513,8 @@ export default function Home() {
               
               <div className="lg:w-1/2 order-1 lg:order-2 scroll-reveal">
                 <img 
-                  src="https://images.unsplash.com/photo-1503236823255-94609f598e71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Elena Rose Makeup Artist" 
+                  src={getContentValue(aboutContent, 'image_url', "https://images.unsplash.com/photo-1503236823255-94609f598e71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80")} 
+                  alt={getContentValue(aboutContent, 'title', 'Sarah Condrea Makeup Artist')} 
                   className="rounded-xl shadow-xl w-full"
                 />
               </div>
@@ -517,8 +526,12 @@ export default function Home() {
         <section className="py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white scroll-reveal">Client Love</h2>
-              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">What my clients have to say about their experiences.</p>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white scroll-reveal">
+                {getContentValue(testimonialsContent, 'title', 'Client Love')}
+              </h2>
+              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">
+                {getContentValue(testimonialsContent, 'subtitle', 'What my clients have to say about their experiences.')}
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

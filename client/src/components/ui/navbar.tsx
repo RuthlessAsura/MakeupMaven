@@ -3,9 +3,22 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileMenu } from "@/components/ui/mobile-menu";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import type { SiteContent } from "@shared/schema";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  
+  // Fetch navigation content
+  const { data: navContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ["/api/content/navigation"],
+  });
+  
+  // Helper function to get content value by key
+  const getContentValue = (key: string, defaultValue: string) => {
+    const content = navContent.find((item: SiteContent) => item.key === key);
+    return content ? content.value : defaultValue;
+  };
   
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +30,11 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { href: "#home", label: "Home" },
-    { href: "#portfolio", label: "Portfolio" },
-    { href: "#services", label: "Services" },
-    { href: "#about", label: "About" },
-    { href: "#contact", label: "Contact" },
+    { href: "#home", label: getContentValue('menu_home', 'Home') },
+    { href: "#portfolio", label: getContentValue('menu_portfolio', 'Portfolio') },
+    { href: "#services", label: getContentValue('menu_services', 'Services') },
+    { href: "#about", label: getContentValue('menu_about', 'About') },
+    { href: "#contact", label: getContentValue('menu_contact', 'Contact') },
   ];
 
   return (
