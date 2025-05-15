@@ -108,9 +108,9 @@ export default function AdminDashboard() {
   const [editContentId, setEditContentId] = useState<number | null>(null);
   const [editContentValue, setEditContentValue] = useState("");
 
-  const { data: contentData, isLoading: isLoadingContent } = useQuery({
-    queryKey: ['/api/admin/content', selectedSection],
-    queryFn: getQueryFn({ 
+  const { data: contentData = [], isLoading: isLoadingContent } = useQuery<SiteContent[]>({
+    queryKey: [`/api/admin/content/${selectedSection}`, selectedSection],
+    queryFn: getQueryFn<SiteContent[]>({ 
       on401: "returnNull", 
       customHeaders: getAuthHeaders()
     }),
