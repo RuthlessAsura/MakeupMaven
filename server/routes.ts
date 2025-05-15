@@ -5,7 +5,19 @@ import { insertContactSchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
+// Import route handlers
+import adminRoutes from './routes/admin';
+import contentRoutes from './routes/content';
+import portfolioRoutes from './routes/portfolio';
+import servicesRoutes from './routes/services';
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register API routes
+  app.use('/api/admin', adminRoutes);
+  app.use('/api/content', contentRoutes);
+  app.use('/api/portfolio', portfolioRoutes);
+  app.use('/api/services', servicesRoutes);
+  
   // Contact form submission endpoint
   app.post("/api/contact", async (req, res) => {
     try {
@@ -39,6 +51,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Generate a random API key for admin access if none exists
+  if (!process.env.ADMIN_API_KEY) {
+    const apiKey = Math.random().toString(36).substring(2, 15) + 
+                   Math.random().toString(36).substring(2, 15);
+    process.env.ADMIN_API_KEY = apiKey;
+    console.log(`Admin API Key generated: ${apiKey}`);
+    console.log('Use this key as X-API-Key header for admin API access');
+  }
 
   const httpServer = createServer(app);
 
