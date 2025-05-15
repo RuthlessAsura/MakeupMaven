@@ -5,14 +5,15 @@ import Footer from "@/components/ui/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 import { 
   Check, 
   X,
   MapPin, 
   Mail, 
   Instagram,
-  Quote 
+  Quote,
+  ZoomIn
 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -129,6 +130,9 @@ export default function Home() {
   const onSubmit = (data: z.infer<typeof contactFormSchema>) => {
     contactMutation.mutate(data);
   };
+  
+  // Image modal state
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Gallery data
   const galleryItems: GalleryItem[] = [
@@ -386,13 +390,21 @@ export default function Home() {
                   {galleryItems.map((item) => (
                     <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
                       <div className="p-1">
-                        <div className="gallery-item overflow-hidden shadow-lg rounded-xl">
+                        <motion.div 
+                          className="gallery-item overflow-hidden shadow-lg rounded-xl cursor-pointer relative group"
+                          whileHover={{ scale: 1.03 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                          onClick={() => setSelectedImage(item.image)}
+                        >
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                            <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={32} />
+                          </div>
                           <img src={item.image} alt={item.title} className="w-full h-80 object-cover" />
                           <div className="p-4 bg-white dark:bg-gray-800">
                             <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
                             <p className="text-gray-600 dark:text-gray-300 text-sm font-medium">{item.description}</p>
                           </div>
-                        </div>
+                        </motion.div>
                       </div>
                     </CarouselItem>
                   ))}
