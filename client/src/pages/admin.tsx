@@ -151,9 +151,9 @@ export default function AdminDashboard() {
   const [selectedPortfolioItem, setSelectedPortfolioItem] = useState<PortfolioItem | null>(null);
   const [isPortfolioDialogOpen, setIsPortfolioDialogOpen] = useState(false);
 
-  const { data: portfolioData, isLoading: isLoadingPortfolio } = useQuery({
+  const { data: portfolioData = [], isLoading: isLoadingPortfolio } = useQuery<PortfolioItem[]>({
     queryKey: ['/api/admin/portfolio'],
-    queryFn: getQueryFn({ 
+    queryFn: getQueryFn<PortfolioItem[]>({ 
       on401: "returnNull", 
       customHeaders: getAuthHeaders()
     }),
@@ -266,9 +266,9 @@ export default function AdminDashboard() {
   const [selectedServiceItem, setSelectedServiceItem] = useState<ServiceItem | null>(null);
   const [isServiceDialogOpen, setIsServiceDialogOpen] = useState(false);
 
-  const { data: servicesData, isLoading: isLoadingServices } = useQuery({
+  const { data: servicesData = [], isLoading: isLoadingServices } = useQuery<ServiceItem[]>({
     queryKey: ['/api/admin/services'],
-    queryFn: getQueryFn({ 
+    queryFn: getQueryFn<ServiceItem[]>({ 
       on401: "returnNull", 
       customHeaders: getAuthHeaders()
     }),
