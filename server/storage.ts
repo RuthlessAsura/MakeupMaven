@@ -13,6 +13,7 @@ export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  getAdminUsers(): Promise<User[]>;
   
   // Contact form methods
   createContactSubmission(contact: InsertContact): Promise<ContactSubmission>;
