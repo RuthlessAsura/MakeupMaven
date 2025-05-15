@@ -121,7 +121,7 @@ export default function AdminDashboard() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/content', selectedSection] });
+      queryClient.invalidateQueries({ queryKey: [`/api/admin/content/${selectedSection}`] });
       setEditContentId(null);
       setEditContentValue("");
       toast({

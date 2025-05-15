@@ -7,7 +7,7 @@ const router = Router();
 
 // Fix admin credentials - hardcoded for now, we'll add setup later
 const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'admin123'; // This would be hashed in a real setup
+const ADMIN_PASSWORD = 'sarah0808'; // This would be hashed in a real setup
 
 // Simple authentication middleware using Basic Auth
 export const checkAdmin = async (req: Request, res: Response, next: NextFunction) => {
