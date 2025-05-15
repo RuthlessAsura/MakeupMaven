@@ -294,12 +294,12 @@ export default function Home() {
         <section id="portfolio" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white scroll-reveal">Portfolio</h2>
+              <h2 className="text-3xl md:text-4xl font-normal mb-4 text-gray-900 dark:text-white scroll-reveal">Portfolio</h2>
               <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">Discover the artistry and transformations from my professional makeup journey.</p>
             </div>
 
             <div className="mb-10 flex justify-center scroll-reveal">
-              <div className="inline-flex bg-white dark:bg-gray-800 rounded-full p-1 shadow-md">
+              <div className="inline-flex bg-white dark:bg-gray-800 p-1 shadow-md">
                 <Button
                   variant={activeFilter === "all" ? "default" : "ghost"}
                   onClick={() => setActiveFilter("all")}
@@ -325,9 +325,9 @@ export default function Home() {
                 <Button
                   variant={activeFilter === "editorial" ? "default" : "ghost"}
                   onClick={() => setActiveFilter("editorial")}
-                  className={`px-6 py-2 rounded-full ${
+                  className={`px-4 py-2 ${
                     activeFilter === "editorial" 
-                      ? "bg-primary text-white" 
+                      ? "bg-accent text-white" 
                       : "text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-primary"
                   }`}
                 >
@@ -336,9 +336,9 @@ export default function Home() {
                 <Button
                   variant={activeFilter === "everyday" ? "default" : "ghost"}
                   onClick={() => setActiveFilter("everyday")}
-                  className={`px-6 py-2 rounded-full ${
+                  className={`px-4 py-2 ${
                     activeFilter === "everyday" 
-                      ? "bg-primary text-white" 
+                      ? "bg-accent text-white" 
                       : "text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-primary"
                   }`}
                 >
@@ -375,16 +375,16 @@ export default function Home() {
         <section id="services" className="py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white scroll-reveal">Services</h2>
+              <h2 className="text-3xl md:text-4xl font-normal mb-4 text-gray-900 dark:text-white scroll-reveal">Services</h2>
               <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">Professional makeup services tailored to your unique style and occasion.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {serviceItems.map((service) => (
-                <div key={service.id} className="service-card rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-800 scroll-reveal">
+                <div key={service.id} className="service-card overflow-hidden shadow-lg bg-white dark:bg-gray-800 scroll-reveal">
                   <img src={service.image} alt={service.title} className="w-full h-60 object-cover" />
                   <div className="p-6">
-                    <h3 className="font-playfair text-xl font-semibold mb-3 text-gray-900 dark:text-white">{service.title}</h3>
+                    <h3 className="text-xl font-medium mb-3 text-gray-900 dark:text-white">{service.title}</h3>
                     <p className="text-gray-600 dark:text-gray-300 mb-4">{service.description}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-accent dark:text-primary font-semibold">{service.price}</span>
