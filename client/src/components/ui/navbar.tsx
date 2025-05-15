@@ -48,7 +48,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <a href="#" className="text-2xl font-bold text-gray-900 dark:text-white">
-          Sarah Condrea
+          Lashes by Sarah
         </a>
         
         <div className="hidden md:flex items-center space-x-8">
