@@ -211,7 +211,7 @@ export default function Home() {
   }));
 
   // Fetch testimonials from API
-  const { data: testimonialsData = [] } = useQuery({
+  const { data: testimonialsData = [] } = useQuery<TestimonialItem[]>({
     queryKey: ["/api/testimonials"],
     queryFn: getQueryFn({ on401: "returnNull" })
   });

@@ -60,6 +60,17 @@ type ServiceItem = {
   updatedAt: string;
 };
 
+type TestimonialItem = {
+  id: number;
+  quote: string;
+  name: string;
+  role: string;
+  order: number;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
 import AdminLogin from "@/components/admin-login";
 
 export default function AdminDashboard() {
