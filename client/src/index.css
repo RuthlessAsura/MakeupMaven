@@ -93,19 +93,11 @@
   }
 
   body {
-    @apply font-montserrat antialiased bg-background text-foreground;
+    @apply antialiased bg-background text-foreground;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
-  }
-
-  .font-poppins {
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .font-montserrat {
+  body, h1, h2, h3, h4, h5, h6, p, a, button, input, textarea, select {
     font-family: 'Montserrat', sans-serif;
   }
 

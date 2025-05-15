@@ -233,9 +233,9 @@ export default function Home() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8 }}
-                  className="text-4xl md:text-6xl font-light text-gray-900 dark:text-white mb-6"
+                  className="text-4xl md:text-6xl font-light text-gray-900 dark:text-white mb-6 uppercase tracking-wide"
                 >
-                  <span className="text-accent">Transforming</span> Beauty Into Art
+                  <span className="text-accent">Transforming</span><br />Beauty Into Art
                 </motion.h1>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
@@ -357,11 +357,11 @@ export default function Home() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.3 }}
                     layout
-                    className="gallery-item rounded-lg overflow-hidden shadow-lg"
+                    className="gallery-item overflow-hidden shadow-lg"
                   >
                     <img src={item.image} alt={item.title} className="w-full h-80 object-cover" />
                     <div className="p-4 bg-white dark:bg-gray-800">
-                      <h3 className="font-playfair text-xl font-semibold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
+                      <h3 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">{item.title}</h3>
                       <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
                     </div>
                   </motion.div>
