@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { 
   Check, 
   MapPin, 
@@ -49,6 +50,27 @@ type TestimonialItem = {
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState<"all" | "bridal" | "editorial" | "everyday">("all");
   const { toast } = useToast();
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
+  // Parallax effect for 3D makeup icons
+  useEffect(() => {
+    const handleScroll = () => {
+      if (parallaxRef.current) {
+        const elements = parallaxRef.current.querySelectorAll('.parallax-layer');
+        const scrollPosition = window.scrollY;
+        
+        elements.forEach((element) => {
+          const depth = parseFloat(element.getAttribute('data-depth') || '0.1');
+          const movement = scrollPosition * depth;
+          const el = element as HTMLElement;
+          el.style.transform = `translate3d(0, ${movement}px, 0)`;
+        });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Intersection Observer for scroll animations
   useEffect(() => {
@@ -218,12 +240,14 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-pink-50 dark:bg-gray-900">
-          <div className="absolute inset-0 z-0 opacity-15 dark:opacity-30 pointer-events-none">
-            <img 
-              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCI+PCEtLSBNYWtldXAgQnJ1c2ggLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAwLCAyMDApIHJvdGF0ZSgtMzApIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjI1IiByeD0iNSIgZmlsbD0iI2Y4YzNkOCIgLz48cmVjdCB4PSIxNTAiIHk9IjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMjUiIHJ4PSI1IiBmaWxsPSIjZDRhZmM5IiAvPjxwYXRoIGQ9Ik0yNzAsMTIuNSBMMjkwLDIwIEwyNzAsMjUgWiIgZmlsbD0iI2Q0YWZjOSIgLz48cmVjdCB4PSI1MCIgeT0iNy41IiB3aWR0aD0iNjUiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjMiIC8+PC9nPjwhLS0gTGlwc3RpY2sgLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwLCAxNTApIHJvdGF0ZSgxNSkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNSIgaGVpZ2h0PSI4MCIgcng9IjEyLjUiIGZpbGw9IiNkNjhhYjUiIC8+PHBhdGggZD0iTTAsMCBRMTIuNSwtMTUgMjUsMCBaIiBmaWxsPSIjZjI2YjljIiAvPjxyZWN0IHg9IjUiIHk9IjgwIiB3aWR0aD0iMTUiIGhlaWdodD0iNDAiIHJ4PSI3LjUiIGZpbGw9IiM5YzY5ODAiIC8+PC9nPjwhLS0gUG93ZGVyIENvbXBhY3QgLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzUwLCAzNTApIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2Y4ZDBlMCIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NSIgZmlsbD0iI2ZhZTNlZSIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2ZiZWNmMyIgLz48cGF0aCBkPSJNNTAsMTUgUTY1LDQwIDUwLDY1IFEzNSw0MCA1MCwxNSBaIiBmaWxsPSIjZjRiOGQxIiBvcGFjaXR5PSIwLjciIC8+PHJlY3QgeD0iMjUiIHk9IjUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI3IiByeD0iMyIgZmlsbD0iI2Q0YWZjOSIgLz48L2c+PCEtLSBFeWVsaW5lciAtLT48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTAsIDQwMCkgcm90YXRlKC0yMCkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMzAiIGhlaWdodD0iMTUiIHJ4PSI3LjUiIGZpbGw9IiMzMzMzMzMiIC8+PHJlY3QgeD0iMTMwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTUiIHJ4PSI3LjUiIGZpbGw9IiMxMTExMTEiIC8+PHJlY3QgeD0iMTAiIHk9IjQiIHdpZHRoPSIxMTAiIGhlaWdodD0iNyIgcng9IjMuNSIgZmlsbD0iIzU1NTU1NSIgLz48L2c+PCEtLSBNYXNjYXJhIC0tPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ1MCwgMzIwKSByb3RhdGUoMTApIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTAwIiByeD0iMTAiIGZpbGw9IiMyMjIyMjIiIC8+PHJlY3QgeD0iNSIgeT0iMTAwIiB3aWR0aD0iMTAiIGhlaWdodD0iMzAiIHJ4PSI1IiBmaWxsPSIjMDAwMDAwIiAvPjxyZWN0IHg9IjciIHk9IjEwIiB3aWR0aD0iNiIgaGVpZ2h0PSI4MCIgcng9IjMiIGZpbGw9IiM0NDQ0NDQiIC8+PC9nPjwhLS0gTmFpbCBQb2xpc2ggLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjAwLCAxMDApIHJvdGF0ZSgtNSkiPjxyZWN0IHg9IjAiIHk9IjMwIiB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHJ4PSI1IiBmaWxsPSIjZmY5ZWJjIiAvPjxyZWN0IHg9IjUiIHk9IjM1IiB3aWR0aD0iMzAiIGhlaWdodD0iNTAiIHJ4PSIzIiBmaWxsPSIjZjA2YjljIiAvPjxyZWN0IHg9IjEwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSIjMzMzMzMzIiAvPjxyZWN0IHg9IjE1IiB5PSIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjNTU1NTU1IiAvPjwvZz48IS0tIFNtYWxsIGRlY29yYXRpdmUgZWxlbWVudHMgLS0+PGNpcmNsZSBjeD0iOTAiIGN5PSIxMjAiIHI9IjgiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuOCIgLz48Y2lyY2xlIGN4PSIxMjAiIGN5PSI5MCIgcj0iNSIgZmlsbD0iI2Q0YWZjOSIgb3BhY2l0eT0iMC44IiAvPjxjaXJjbGUgY3g9IjUwMCIgY3k9IjkwIiByPSI3IiBmaWxsPSIjZjhjM2Q4IiBvcGFjaXR5PSIwLjgiIC8+PGNpcmNsZSBjeD0iNTIwIiBjeT0iNDUwIiByPSI2IiBmaWxsPSIjZDRhZmM5IiBvcGFjaXR5PSIwLjgiIC8+PGNpcmNsZSBjeD0iNzAiIGN5PSI1MDAiIHI9IjkiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuOCIgLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSI1MjAiIHI9IjciIGZpbGw9IiNkNGFmYzkiIG9wYWNpdHk9IjAuOCIgLz48IS0tIFNtYWxsIHN0YXJzIC0tPjxwYXRoIGQ9Ik0zNzAsMTAwIEwzNzMsMTA3IEwzODAsMTA4IEwzNzUsMTEzIEwzNzYsMTIwIEwzNzAsMTE3IEwzNjQsMTIwIEwzNjUsMTEzIEwzNjAsMTA4IEwzNjcsMTA3IFoiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuNiIgLz48cGF0aCBkPSJNMjcwLDQ4MCBMMjcyLDQ4NSBMMjc4LDQ4NiBMMjc0LDQ5MCBMMjc1LDQ5NiBMMjcwLDQ5MyBMMjY1LDQ5NiBMMjY2LDQ5MCBMMjYyLDQ4NiBMMjY4LDQ4NSBaIiBmaWxsPSIjZjhjM2Q4IiBvcGFjaXR5PSIwLjYiIC8+PHBhdGggZD0iTTUzMCwyNTAgTDUzMiwyNTUgTDUzOCwyNTYgTDUzNCwyNjAgTDUzNSwyNjYgTDUzMCwyNjMgTDUyNSwyNjYgTDUyNiwyNjAgTDUyMiwyNTYgTDUyOCwyNTUgWiIgZmlsbD0iI2Y4YzNkOCIgb3BhY2l0eT0iMC42IiAvPjwvc3ZnPg=="
-              alt="Makeup elements background" 
-              className="w-full h-full object-cover"
-            />
+          <div className="absolute inset-0 z-0 opacity-15 dark:opacity-30 pointer-events-none" id="parallax-container" ref={parallaxRef}>
+            <div className="parallax-layer" data-depth="0.2">
+              <img 
+                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCI+PCEtLSBNYWtldXAgQnJ1c2ggLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAwLCAyMDApIHJvdGF0ZSgtMzApIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjI1IiByeD0iNSIgZmlsbD0iI2Y4YzNkOCIgLz48cmVjdCB4PSIxNTAiIHk9IjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMjUiIHJ4PSI1IiBmaWxsPSIjZDRhZmM5IiAvPjxwYXRoIGQ9Ik0yNzAsMTIuNSBMMjkwLDIwIEwyNzAsMjUgWiIgZmlsbD0iI2Q0YWZjOSIgLz48cmVjdCB4PSI1MCIgeT0iNy41IiB3aWR0aD0iNjUiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjMiIC8+PC9nPjwhLS0gTGlwc3RpY2sgLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwLCAxNTApIHJvdGF0ZSgxNSkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNSIgaGVpZ2h0PSI4MCIgcng9IjEyLjUiIGZpbGw9IiNkNjhhYjUiIC8+PHBhdGggZD0iTTAsMCBRMTIuNSwtMTUgMjUsMCBaIiBmaWxsPSIjZjI2YjljIiAvPjxyZWN0IHg9IjUiIHk9IjgwIiB3aWR0aD0iMTUiIGhlaWdodD0iNDAiIHJ4PSI3LjUiIGZpbGw9IiM5YzY5ODAiIC8+PC9nPjwhLS0gUG93ZGVyIENvbXBhY3QgLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzUwLCAzNTApIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2Y4ZDBlMCIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NSIgZmlsbD0iI2ZhZTNlZSIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2ZiZWNmMyIgLz48cGF0aCBkPSJNNTAsMTUgUTY1LDQwIDUwLDY1IFEzNSw0MCA1MCwxNSBaIiBmaWxsPSIjZjRiOGQxIiBvcGFjaXR5PSIwLjciIC8+PHJlY3QgeD0iMjUiIHk9IjUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI3IiByeD0iMyIgZmlsbD0iI2Q0YWZjOSIgLz48L2c+PCEtLSBFeWVsaW5lciAtLT48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTAsIDQwMCkgcm90YXRlKC0yMCkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMzAiIGhlaWdodD0iMTUiIHJ4PSI3LjUiIGZpbGw9IiMzMzMzMzMiIC8+PHJlY3QgeD0iMTMwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTUiIHJ4PSI3LjUiIGZpbGw9IiMxMTExMTEiIC8+PHJlY3QgeD0iMTAiIHk9IjQiIHdpZHRoPSIxMTAiIGhlaWdodD0iNyIgcng9IjMuNSIgZmlsbD0iIzU1NTU1NSIgLz48L2c+PCEtLSBNYXNjYXJhIC0tPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ1MCwgMzIwKSByb3RhdGUoMTApIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTAwIiByeD0iMTAiIGZpbGw9IiMyMjIyMjIiIC8+PHJlY3QgeD0iNSIgeT0iMTAwIiB3aWR0aD0iMTAiIGhlaWdodD0iMzAiIHJ4PSI1IiBmaWxsPSIjMDAwMDAwIiAvPjxyZWN0IHg9IjciIHk9IjEwIiB3aWR0aD0iNiIgaGVpZ2h0PSI4MCIgcng9IjMiIGZpbGw9IiM0NDQ0NDQiIC8+PC9nPjwhLS0gTmFpbCBQb2xpc2ggLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjAwLCAxMDApIHJvdGF0ZSgtNSkiPjxyZWN0IHg9IjAiIHk9IjMwIiB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHJ4PSI1IiBmaWxsPSIjZmY5ZWJjIiAvPjxyZWN0IHg9IjUiIHk9IjM1IiB3aWR0aD0iMzAiIGhlaWdodD0iNTAiIHJ4PSIzIiBmaWxsPSIjZjA2YjljIiAvPjxyZWN0IHg9IjEwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSIjMzMzMzMzIiAvPjxyZWN0IHg9IjE1IiB5PSIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjNTU1NTU1IiAvPjwvZz48IS0tIFNtYWxsIGRlY29yYXRpdmUgZWxlbWVudHMgLS0+PGNpcmNsZSBjeD0iOTAiIGN5PSIxMjAiIHI9IjgiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuOCIgLz48Y2lyY2xlIGN4PSIxMjAiIGN5PSI5MCIgcj0iNSIgZmlsbD0iI2Q0YWZjOSIgb3BhY2l0eT0iMC44IiAvPjxjaXJjbGUgY3g9IjUwMCIgY3k9IjkwIiByPSI3IiBmaWxsPSIjZjhjM2Q4IiBvcGFjaXR5PSIwLjgiIC8+PGNpcmNsZSBjeD0iNTIwIiBjeT0iNDUwIiByPSI2IiBmaWxsPSIjZDRhZmM5IiBvcGFjaXR5PSIwLjgiIC8+PGNpcmNsZSBjeD0iNzAiIGN5PSI1MDAiIHI9IjkiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuOCIgLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSI1MjAiIHI9IjciIGZpbGw9IiNkNGFmYzkiIG9wYWNpdHk9IjAuOCIgLz48IS0tIFNtYWxsIHN0YXJzIC0tPjxwYXRoIGQ9Ik0zNzAsMTAwIEwzNzMsMTA3IEwzODAsMTA4IEwzNzUsMTEzIEwzNzYsMTIwIEwzNzAsMTE3IEwzNjQsMTIwIEwzNjUsMTEzIEwzNjAsMTA4IEwzNjcsMTA3IFoiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuNiIgLz48cGF0aCBkPSJNMjcwLDQ4MCBMMjcyLDQ4NSBMMjc4LDQ4NiBMMjc0LDQ5MCBMMjc1LDQ5NiBMMjcwLDQ5MyBMMjY1LDQ5NiBMMjY2LDQ5MCBMMjYyLDQ4NiBMMjY4LDQ4NSBaIiBmaWxsPSIjZjhjM2Q4IiBvcGFjaXR5PSIwLjYiIC8+PHBhdGggZD0iTTUzMCwyNTAgTDUzMiwyNTUgTDUzOCwyNTYgTDUzNCwyNjAgTDUzNSwyNjYgTDUzMCwyNjMgTDUyNSwyNjYgTDUyNiwyNjAgTDUyMiwyNTYgTDUyOCwyNTUgWiIgZmlsbD0iI2Y4YzNkOCIgb3BhY2l0eT0iMC42IiAvPjwvc3ZnPg=="
+                alt="Makeup elements background" 
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
 
           <div className="container mx-auto px-6 relative z-10">
@@ -253,14 +277,14 @@ export default function Home() {
                 >
                   <Button 
                     asChild
-                    className="px-6 py-3 bg-accent hover:bg-opacity-90 text-white rounded-none font-normal uppercase tracking-wider transition-all duration-300 text-center"
+                    className="px-6 py-3 bg-accent hover:bg-opacity-90 text-white text-center uppercase tracking-wider transition-all duration-300"
                   >
                     <a href="#portfolio">View My Work</a>
                   </Button>
                   <Button 
                     asChild
                     variant="outline"
-                    className="px-6 py-3 border border-accent text-accent dark:text-white dark:border-white hover:bg-accent hover:text-white dark:hover:bg-white dark:hover:text-gray-900 rounded-none font-normal uppercase tracking-wider transition-all duration-300 text-center"
+                    className="px-6 py-3 border border-accent text-accent dark:text-white dark:border-white hover:bg-accent hover:text-white dark:hover:bg-white dark:hover:text-gray-900 text-center uppercase tracking-wider transition-all duration-300"
                   >
                     <a href="#contact">Book Session</a>
                   </Button>
@@ -347,6 +371,38 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Featured Carousel */}
+            <div className="mb-16">
+              <Carousel 
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {galleryItems.map((item) => (
+                    <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
+                      <div className="p-1">
+                        <div className="gallery-item overflow-hidden shadow-lg rounded-xl">
+                          <img src={item.image} alt={item.title} className="w-full h-80 object-cover" />
+                          <div className="p-4 bg-white dark:bg-gray-800">
+                            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
+                            <p className="text-gray-600 dark:text-gray-300 text-sm font-medium">{item.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex justify-center mt-4">
+                  <CarouselPrevious className="static translate-y-0 rounded-full" />
+                  <CarouselNext className="static translate-y-0 rounded-full ml-4" />
+                </div>
+              </Carousel>
+            </div>
+            
+            {/* Full Gallery */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <AnimatePresence>
                 {filteredGalleryItems.map((item) => (
@@ -357,12 +413,12 @@ export default function Home() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.3 }}
                     layout
-                    className="gallery-item overflow-hidden shadow-lg"
+                    className="gallery-item overflow-hidden shadow-lg rounded-xl"
                   >
                     <img src={item.image} alt={item.title} className="w-full h-80 object-cover" />
                     <div className="p-4 bg-white dark:bg-gray-800">
-                      <h3 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">{item.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
+                      <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm font-medium">{item.description}</p>
                     </div>
                   </motion.div>
                 ))}

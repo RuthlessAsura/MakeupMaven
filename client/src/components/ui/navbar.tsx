@@ -55,7 +55,7 @@ export default function Navbar() {
             <ThemeToggle />
             <Button 
               asChild 
-              className="ml-4 bg-accent text-white rounded-none font-normal text-sm uppercase tracking-wider px-4 py-2"
+              className="ml-4 bg-accent text-white text-sm uppercase tracking-wider px-4 py-2"
             >
               <a href="#contact">Book Now</a>
             </Button>
