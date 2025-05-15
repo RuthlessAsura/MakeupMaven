@@ -93,7 +93,7 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-montserrat antialiased bg-background text-foreground;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 

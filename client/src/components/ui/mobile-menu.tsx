@@ -41,7 +41,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
                   key={link.href}
                   href={link.href}
                   onClick={closeMenu}
-                  className="py-2 hover:text-accent dark:hover:text-primary transition-colors"
+                  className="py-2 uppercase text-sm tracking-wide hover:text-accent dark:hover:text-primary transition-colors"
                 >
                   {link.label}
                 </a>

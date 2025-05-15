@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <!-- Makeup Brush -->
+  <g transform="translate(100, 200) rotate(-30)">
+    <rect x="0" y="0" width="150" height="25" rx="5" fill="#f8c3d8" />
+    <rect x="150" y="0" width="120" height="25" rx="5" fill="#d4afc9" />
+    <path d="M270,12.5 L290,20 L270,25 Z" fill="#d4afc9" />
+    <rect x="50" y="7.5" width="65" height="10" rx="5" fill="#ffffff" opacity="0.3" />
+  </g>
+
+  <!-- Lipstick -->
+  <g transform="translate(450, 150) rotate(15)">
+    <rect x="0" y="0" width="25" height="80" rx="12.5" fill="#d68ab5" />
+    <path d="M0,0 Q12.5,-15 25,0 Z" fill="#f26b9c" />
+    <rect x="5" y="80" width="15" height="40" rx="7.5" fill="#9c6980" />
+  </g>
+
+  <!-- Powder Compact -->
+  <g transform="translate(350, 350)">
+    <circle cx="50" cy="50" r="50" fill="#f8d0e0" />
+    <circle cx="50" cy="50" r="45" fill="#fae3ee" />
+    <circle cx="50" cy="50" r="40" fill="#fbecf3" />
+    <path d="M50,15 Q65,40 50,65 Q35,40 50,15 Z" fill="#f4b8d1" opacity="0.7" />
+    <rect x="25" y="5" width="50" height="7" rx="3" fill="#d4afc9" />
+  </g>
+
+  <!-- Eyeliner -->
+  <g transform="translate(150, 400) rotate(-20)">
+    <rect x="0" y="0" width="130" height="15" rx="7.5" fill="#333333" />
+    <rect x="130" y="0" width="20" height="15" rx="7.5" fill="#111111" />
+    <rect x="10" y="4" width="110" height="7" rx="3.5" fill="#555555" />
+  </g>
+
+  <!-- Mascara -->
+  <g transform="translate(450, 320) rotate(10)">
+    <rect x="0" y="0" width="20" height="100" rx="10" fill="#222222" />
+    <rect x="5" y="100" width="10" height="30" rx="5" fill="#000000" />
+    <rect x="7" y="10" width="6" height="80" rx="3" fill="#444444" />
+  </g>
+
+  <!-- Nail Polish -->
+  <g transform="translate(200, 100) rotate(-5)">
+    <rect x="0" y="30" width="40" height="60" rx="5" fill="#ff9ebc" />
+    <rect x="5" y="35" width="30" height="50" rx="3" fill="#f06b9c" />
+    <rect x="10" y="0" width="20" height="30" rx="3" fill="#333333" />
+    <rect x="15" y="0" width="10" height="10" rx="5" fill="#555555" />
+  </g>
+
+  <!-- Small decorative elements -->
+  <circle cx="90" cy="120" r="8" fill="#f8c3d8" opacity="0.8" />
+  <circle cx="120" cy="90" r="5" fill="#d4afc9" opacity="0.8" />
+  <circle cx="500" cy="90" r="7" fill="#f8c3d8" opacity="0.8" />
+  <circle cx="520" cy="450" r="6" fill="#d4afc9" opacity="0.8" />
+  <circle cx="70" cy="500" r="9" fill="#f8c3d8" opacity="0.8" />
+  <circle cx="300" cy="520" r="7" fill="#d4afc9" opacity="0.8" />
+  
+  <!-- Small stars -->
+  <path d="M370,100 L373,107 L380,108 L375,113 L376,120 L370,117 L364,120 L365,113 L360,108 L367,107 Z" fill="#f8c3d8" opacity="0.6" />
+  <path d="M270,480 L272,485 L278,486 L274,490 L275,496 L270,493 L265,496 L266,490 L262,486 L268,485 Z" fill="#f8c3d8" opacity="0.6" />
+  <path d="M530,250 L532,255 L538,256 L534,260 L535,266 L530,263 L525,266 L526,260 L522,256 L528,255 Z" fill="#f8c3d8" opacity="0.6" />
+</svg>

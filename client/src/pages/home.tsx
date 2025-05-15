@@ -217,53 +217,67 @@ export default function Home() {
       
       <main>
         {/* Hero Section */}
-        <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <img 
-              src="https://images.unsplash.com/photo-1457972851104-4fd469440bf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-              alt="Makeup Artist Portfolio" 
-              className="w-full h-full object-cover"
+        <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-pink-50 dark:bg-gray-900">
+          <div className="absolute inset-0 z-0 opacity-15 dark:opacity-30 pointer-events-none">
+            <object 
+              data="/src/assets/makeup-icons.svg" 
+              type="image/svg+xml"
+              className="w-full h-full"
+              aria-label="Makeup icons background"
             />
-            <div className="absolute inset-0 bg-pink-light bg-opacity-40 dark:bg-gray-900 dark:bg-opacity-70"></div>
           </div>
 
           <div className="container mx-auto px-6 relative z-10">
-            <div className="max-w-3xl">
-              <motion.h1 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
-                className="text-4xl md:text-6xl font-playfair font-bold text-gray-900 dark:text-white mb-6"
-              >
-                Transform your look with artistry
-              </motion.h1>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-xl md:text-2xl font-light text-gray-800 dark:text-gray-200 mb-8"
-              >
-                Elevating beauty through professional makeup artistry and personalized experiences.
-              </motion.p>
+            <div className="flex flex-col lg:flex-row items-center">
+              <div className="max-w-2xl lg:w-1/2">
+                <motion.h1 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-4xl md:text-6xl font-light text-gray-900 dark:text-white mb-6"
+                >
+                  <span className="text-accent">Transforming</span> Beauty Into Art
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-base md:text-lg font-light text-gray-700 dark:text-gray-300 mb-8"
+                >
+                  Professional makeup artistry for weddings, editorial shoots, special events, and more. Let's create a look that's uniquely you.
+                </motion.p>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-4"
+                >
+                  <Button 
+                    asChild
+                    className="px-6 py-3 bg-accent hover:bg-opacity-90 text-white rounded-none font-normal uppercase tracking-wider transition-all duration-300 text-center"
+                  >
+                    <a href="#portfolio">View My Work</a>
+                  </Button>
+                  <Button 
+                    asChild
+                    variant="outline"
+                    className="px-6 py-3 border border-accent text-accent dark:text-white dark:border-white hover:bg-accent hover:text-white dark:hover:bg-white dark:hover:text-gray-900 rounded-none font-normal uppercase tracking-wider transition-all duration-300 text-center"
+                  >
+                    <a href="#contact">Book Session</a>
+                  </Button>
+                </motion.div>
+              </div>
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="lg:w-1/2 mt-12 lg:mt-0 flex justify-center"
               >
-                <Button 
-                  asChild
-                  className="px-8 py-6 bg-accent hover:bg-opacity-90 text-white rounded-full font-medium transition-all duration-300 text-center shadow-lg hover:shadow-xl"
-                >
-                  <a href="#portfolio">View Portfolio</a>
-                </Button>
-                <Button 
-                  asChild
-                  variant="outline"
-                  className="px-8 py-6 border-2 border-accent text-accent dark:text-white dark:border-white hover:bg-accent hover:text-white dark:hover:bg-white dark:hover:text-gray-900 rounded-full font-medium transition-all duration-300 text-center"
-                >
-                  <a href="#contact">Book Session</a>
-                </Button>
+                <div className="relative w-full max-w-md h-96 border-8 border-white shadow-xl">
+                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </div>

@@ -33,12 +33,12 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="text-2xl font-playfair font-bold text-accent dark:text-primary">
-          Elena Rose
+        <a href="#" className="text-2xl font-normal text-gray-900 dark:text-white">
+          Makeup Artist
         </a>
         
         <div className="hidden md:flex items-center space-x-8">
-          <nav className="flex items-center space-x-8 text-sm font-medium">
+          <nav className="flex items-center space-x-8 text-sm font-medium uppercase">
             {links.map((link) => (
               <a
                 key={link.href}
