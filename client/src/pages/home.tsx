@@ -13,7 +13,8 @@ import {
   Mail, 
   Instagram,
   Quote,
-  ZoomIn
+  ZoomIn,
+  Loader2
 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,9 +24,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { useMutation } from "@tanstack/react-query";
+import { apiRequest, getQueryFn } from "@/lib/queryClient";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { contactFormSchema } from "@/lib/types";
+import { ServiceItem as DbServiceItem, PortfolioItem as DbPortfolioItem, SiteContent } from "@shared/schema";
 
 type GalleryItem = {
   id: number;
@@ -55,6 +57,55 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { toast } = useToast();
   const parallaxRef = useRef<HTMLDivElement>(null);
+  
+  // Fetch site content
+  const { data: heroContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ['/api/content/hero'],
+    queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
+  });
+  
+  const { data: aboutContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ['/api/content/about'],
+    queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
+  });
+  
+  const { data: servicesContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ['/api/content/services'],
+    queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
+  });
+  
+  const { data: portfolioContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ['/api/content/portfolio'],
+    queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
+  });
+  
+  const { data: contactContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ['/api/content/contact'],
+    queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
+  });
+  
+  const { data: footerContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ['/api/content/footer'],
+    queryFn: getQueryFn<SiteContent[]>({ on401: "returnNull" }),
+  });
+  
+  // Fetch portfolio items
+  const { data: portfolioItems = [] } = useQuery<DbPortfolioItem[]>({
+    queryKey: ['/api/portfolio'],
+    queryFn: getQueryFn<DbPortfolioItem[]>({ on401: "returnNull" }),
+  });
+  
+  // Fetch service items
+  const { data: dbServiceItems = [] } = useQuery<DbServiceItem[]>({
+    queryKey: ['/api/services'],
+    queryFn: getQueryFn<DbServiceItem[]>({ on401: "returnNull" }),
+  });
+  
+  // Helper function to get content value by key
+  const getContentValue = (contentArray: SiteContent[], key: string, defaultValue: string = "") => {
+    const content = contentArray.find(item => item.key === key);
+    return content ? content.value : defaultValue;
+  };
 
   // Parallax effect for 3D makeup icons
   useEffect(() => {
@@ -136,83 +187,23 @@ export default function Home() {
   };
 
 
-  // Gallery data
-  const galleryItems: GalleryItem[] = [
-    {
-      id: 1,
-      image: "https://pixabay.com/get/g7a73d102601dc64e37add37688574def1364cc2e401f5a52db7a5d90ddc6a5f650586bd106977eb9831faec1a23c3a07e2436a8fb7617e73d4c9d819e2804628_1280.jpg",
-      title: "Classic Bridal",
-      description: "Timeless elegance for the special day",
-      category: "bridal"
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-      title: "Avant-Garde Editorial",
-      description: "Pushing boundaries with artistic expression",
-      category: "editorial"
-    },
-    {
-      id: 3,
-      image: "https://pixabay.com/get/g09c683954a8c6ad54a8decb1adb6110693d43e6cc7d7ea1c484e08aaba22d784e9065ff7ae3b46cdd1ac8820ba2934c0dc516fe7ba0b6611169a93bb6d630363_1280.jpg",
-      title: "Natural Glow",
-      description: "Enhancing beauty for everyday confidence",
-      category: "everyday"
-    },
-    {
-      id: 4,
-      image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-      title: "Evening Drama",
-      description: "Bold looks for special nights",
-      category: "editorial"
-    },
-    {
-      id: 5,
-      image: "https://images.unsplash.com/photo-1560363199-a1264d4ea5fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-      title: "Modern Bride",
-      description: "Contemporary styles for the modern bride",
-      category: "bridal"
-    },
-    {
-      id: 6,
-      image: "https://pixabay.com/get/g00975d9a8bc3ba36530979ad7219443f19cddaab966eb7a37cbcd7c6fdcbacd8d670bbdbd5f23d23c0c4478334c117da8f1326c295040e3e7409d92fb9e0aafe_1280.jpg",
-      title: "Minimalist Beauty",
-      description: "Less is more with subtle enhancement",
-      category: "everyday"
-    }
-  ];
+  // Convert database items to view models
+  const galleryItems: GalleryItem[] = portfolioItems.map(item => ({
+    id: item.id,
+    image: item.imageUrl,
+    title: item.title,
+    description: item.description,
+    category: item.category as "bridal" | "editorial" | "everyday"
+  }));
 
-  // Services data
-  const serviceItems: ServiceItem[] = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-      title: "Bridal Makeup",
-      description: "Complete bridal packages including trials, day-of services, and touch-ups.",
-      price: "From $250"
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-      title: "Special Events",
-      description: "Glamorous looks for galas, parties, proms, and other special occasions.",
-      price: "From $120"
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-      title: "Photo/Video",
-      description: "Camera-ready makeup for photoshoots, videos, and production work.",
-      price: "From $175"
-    },
-    {
-      id: 4,
-      image: "https://pixabay.com/get/g7c90972314b19f7413c56961fbb096494084367d3f0b073b31d0946275777585c121d50bd9f711d0ed7e098f9105ba83c127feebef996fb53ca375d418652a18_1280.jpg",
-      title: "Makeup Lessons",
-      description: "One-on-one or group lessons to master everyday techniques.",
-      price: "From $150"
-    }
-  ];
+  // Convert database service items to view models
+  const processedServices: ServiceItem[] = dbServiceItems.map((item: DbServiceItem) => ({
+    id: item.id,
+    image: item.imageUrl,
+    title: item.title,
+    description: item.description,
+    price: item.price
+  }));
 
   // Testimonials data
   const testimonials: TestimonialItem[] = [
@@ -288,16 +279,15 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8 }}
                   className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
-                >
-                  <span className="text-accent">Transforming</span> Beauty Into<br />Art
-                </motion.h1>
+                  dangerouslySetInnerHTML={{ __html: getContentValue(heroContent, 'title', '<span class="text-accent">Transforming</span> Beauty Into Art') }}
+                />
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-base md:text-lg font-light text-gray-700 dark:text-gray-300 mb-8"
                 >
-                  Professional makeup artistry for weddings, editorial shoots, special events, and more. Let's create a look that's uniquely you.
+                  {getContentValue(heroContent, 'subtitle', 'Professional makeup artistry for weddings, editorial shoots, special events, and more.')}
                 </motion.p>
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
@@ -348,8 +338,12 @@ export default function Home() {
         <section id="portfolio" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-normal mb-4 text-gray-900 dark:text-white scroll-reveal">Portfolio</h2>
-              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">Discover the artistry and transformations from my professional makeup journey.</p>
+              <h2 className="text-3xl md:text-4xl font-normal mb-4 text-gray-900 dark:text-white scroll-reveal">
+                {getContentValue(portfolioContent, 'title', 'Portfolio')}
+              </h2>
+              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">
+                {getContentValue(portfolioContent, 'subtitle', 'Discover the artistry and transformations from my professional makeup journey.')}
+              </p>
             </div>
 
             <div className="mb-10 flex justify-center scroll-reveal">
@@ -448,12 +442,16 @@ export default function Home() {
         <section id="services" className="py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-normal mb-4 text-gray-900 dark:text-white scroll-reveal">Services</h2>
-              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">Professional makeup services tailored to your unique style and occasion.</p>
+              <h2 className="text-3xl md:text-4xl font-normal mb-4 text-gray-900 dark:text-white scroll-reveal">
+                {getContentValue(servicesContent, 'title', 'Services')}
+              </h2>
+              <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">
+                {getContentValue(servicesContent, 'subtitle', 'Professional makeup services tailored to your unique style and occasion.')}
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {serviceItems.map((service) => (
+              {processedServices.map((service: ServiceItem) => (
                 <div key={service.id} className="service-card overflow-hidden shadow-lg bg-white dark:bg-gray-800 scroll-reveal">
                   <img src={service.image} alt={service.title} className="w-full h-60 object-cover" />
                   <div className="p-6">
@@ -549,8 +547,12 @@ export default function Home() {
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white scroll-reveal">Get In Touch</h2>
-                <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">Ready to book a service or have questions? Reach out today.</p>
+                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white scroll-reveal">
+                  {getContentValue(contactContent, 'title', 'Get In Touch')}
+                </h2>
+                <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 scroll-reveal">
+                  {getContentValue(contactContent, 'subtitle', 'Ready to book a service or have questions? Reach out today.')}
+                </p>
               </div>
 
               <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden scroll-reveal">
