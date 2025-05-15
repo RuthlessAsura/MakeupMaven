@@ -48,14 +48,56 @@ async function initSiteContent() {
   
   await storage.createSiteContent({
     section: 'about',
-    key: 'bio',
-    value: 'Sarah Condrea is a professional makeup artist based in Barlad, Romania. With over 5 years of experience, she specializes in bridal, editorial, and special event makeup. Her attention to detail and ability to enhance each client\'s natural beauty has earned her a loyal following and industry recognition.'
+    key: 'paragraph1',
+    value: 'With over 8 years of experience in the beauty industry, I specialize in creating looks that enhance natural beauty while achieving the perfect style for any occasion.'
   });
   
   await storage.createSiteContent({
     section: 'about',
-    key: 'mission',
-    value: 'My mission is to help every client feel confident and beautiful. I believe makeup should enhance your natural features while reflecting your personal style. Whether it\'s your wedding day, a photoshoot, or a special event, I\'m dedicated to creating a look that makes you feel like the best version of yourself.'
+    key: 'paragraph2',
+    value: 'My approach combines technical expertise with artistic vision, ensuring each client receives a personalized experience that makes them look and feel their absolute best.'
+  });
+  
+  await storage.createSiteContent({
+    section: 'about',
+    key: 'paragraph3',
+    value: 'I\'ve trained with leading makeup artists in New York and Paris, and my work has been featured in several fashion magazines and runway shows.'
+  });
+  
+  await storage.createSiteContent({
+    section: 'about',
+    key: 'background_title',
+    value: 'Professional Background'
+  });
+  
+  await storage.createSiteContent({
+    section: 'about',
+    key: 'credential1',
+    value: 'Certified Professional Makeup Artist'
+  });
+  
+  await storage.createSiteContent({
+    section: 'about',
+    key: 'credential2',
+    value: 'Fashion Week Experience (NYC, London)'
+  });
+  
+  await storage.createSiteContent({
+    section: 'about',
+    key: 'credential3',
+    value: 'Celebrity Client Portfolio'
+  });
+  
+  await storage.createSiteContent({
+    section: 'about',
+    key: 'credential4',
+    value: 'Advanced Color Theory Specialist'
+  });
+  
+  await storage.createSiteContent({
+    section: 'about',
+    key: 'image_url',
+    value: 'https://images.unsplash.com/photo-1503236823255-94609f598e71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
   });
   
   // Services section
@@ -120,6 +162,116 @@ async function initSiteContent() {
     section: 'footer',
     key: 'copyright',
     value: '© 2025 Sarah Condrea. All rights reserved.'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'brand_name',
+    value: 'Sarah Condrea'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'tagline',
+    value: 'Makeup Artist & Beauty Specialist'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'location',
+    value: 'Barlad, Romania'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'menu_portfolio',
+    value: 'Portfolio'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'menu_services',
+    value: 'Services'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'menu_about',
+    value: 'About'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'menu_contact',
+    value: 'Contact'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'instagram_url',
+    value: 'https://instagram.com'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'facebook_url',
+    value: 'https://facebook.com'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'pinterest_url',
+    value: 'https://pinterest.com'
+  });
+  
+  await storage.createSiteContent({
+    section: 'footer',
+    key: 'youtube_url',
+    value: 'https://youtube.com'
+  });
+  
+  // Navigation section
+  await storage.createSiteContent({
+    section: 'navigation',
+    key: 'menu_home',
+    value: 'Home'
+  });
+  
+  await storage.createSiteContent({
+    section: 'navigation',
+    key: 'menu_portfolio',
+    value: 'Portfolio'
+  });
+  
+  await storage.createSiteContent({
+    section: 'navigation',
+    key: 'menu_services',
+    value: 'Services'
+  });
+  
+  await storage.createSiteContent({
+    section: 'navigation',
+    key: 'menu_about',
+    value: 'About'
+  });
+  
+  await storage.createSiteContent({
+    section: 'navigation',
+    key: 'menu_contact',
+    value: 'Contact'
+  });
+  
+  // Testimonials section
+  await storage.createSiteContent({
+    section: 'testimonials',
+    key: 'title',
+    value: 'Client Love'
+  });
+  
+  await storage.createSiteContent({
+    section: 'testimonials',
+    key: 'subtitle',
+    value: 'What my clients have to say about their experiences'
   });
 }
 

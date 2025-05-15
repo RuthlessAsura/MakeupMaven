@@ -23,8 +23,12 @@ function Router() {
           const targetElement = document.querySelector(targetId);
           
           if (targetElement) {
+            const rect = targetElement.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const offsetTop = rect.top + scrollTop;
+            
             window.scrollTo({
-              top: targetElement.offsetTop - 80, // Offset for fixed header
+              top: offsetTop - 80, // Offset for fixed header
               behavior: 'smooth'
             });
           }
