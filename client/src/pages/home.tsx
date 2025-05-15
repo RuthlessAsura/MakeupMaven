@@ -219,11 +219,10 @@ export default function Home() {
         {/* Hero Section */}
         <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-pink-50 dark:bg-gray-900">
           <div className="absolute inset-0 z-0 opacity-15 dark:opacity-30 pointer-events-none">
-            <object 
-              data="/src/assets/makeup-icons.svg" 
-              type="image/svg+xml"
-              className="w-full h-full"
-              aria-label="Makeup icons background"
+            <img 
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCI+PCEtLSBNYWtldXAgQnJ1c2ggLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAwLCAyMDApIHJvdGF0ZSgtMzApIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjI1IiByeD0iNSIgZmlsbD0iI2Y4YzNkOCIgLz48cmVjdCB4PSIxNTAiIHk9IjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMjUiIHJ4PSI1IiBmaWxsPSIjZDRhZmM5IiAvPjxwYXRoIGQ9Ik0yNzAsMTIuNSBMMjkwLDIwIEwyNzAsMjUgWiIgZmlsbD0iI2Q0YWZjOSIgLz48cmVjdCB4PSI1MCIgeT0iNy41IiB3aWR0aD0iNjUiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjMiIC8+PC9nPjwhLS0gTGlwc3RpY2sgLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDUwLCAxNTApIHJvdGF0ZSgxNSkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNSIgaGVpZ2h0PSI4MCIgcng9IjEyLjUiIGZpbGw9IiNkNjhhYjUiIC8+PHBhdGggZD0iTTAsMCBRMTIuNSwtMTUgMjUsMCBaIiBmaWxsPSIjZjI2YjljIiAvPjxyZWN0IHg9IjUiIHk9IjgwIiB3aWR0aD0iMTUiIGhlaWdodD0iNDAiIHJ4PSI3LjUiIGZpbGw9IiM5YzY5ODAiIC8+PC9nPjwhLS0gUG93ZGVyIENvbXBhY3QgLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzUwLCAzNTApIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2Y4ZDBlMCIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NSIgZmlsbD0iI2ZhZTNlZSIgLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2ZiZWNmMyIgLz48cGF0aCBkPSJNNTAsMTUgUTY1LDQwIDUwLDY1IFEzNSw0MCA1MCwxNSBaIiBmaWxsPSIjZjRiOGQxIiBvcGFjaXR5PSIwLjciIC8+PHJlY3QgeD0iMjUiIHk9IjUiIHdpZHRoPSI1MCIgaGVpZ2h0PSI3IiByeD0iMyIgZmlsbD0iI2Q0YWZjOSIgLz48L2c+PCEtLSBFeWVsaW5lciAtLT48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTAsIDQwMCkgcm90YXRlKC0yMCkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMzAiIGhlaWdodD0iMTUiIHJ4PSI3LjUiIGZpbGw9IiMzMzMzMzMiIC8+PHJlY3QgeD0iMTMwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTUiIHJ4PSI3LjUiIGZpbGw9IiMxMTExMTEiIC8+PHJlY3QgeD0iMTAiIHk9IjQiIHdpZHRoPSIxMTAiIGhlaWdodD0iNyIgcng9IjMuNSIgZmlsbD0iIzU1NTU1NSIgLz48L2c+PCEtLSBNYXNjYXJhIC0tPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ1MCwgMzIwKSByb3RhdGUoMTApIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTAwIiByeD0iMTAiIGZpbGw9IiMyMjIyMjIiIC8+PHJlY3QgeD0iNSIgeT0iMTAwIiB3aWR0aD0iMTAiIGhlaWdodD0iMzAiIHJ4PSI1IiBmaWxsPSIjMDAwMDAwIiAvPjxyZWN0IHg9IjciIHk9IjEwIiB3aWR0aD0iNiIgaGVpZ2h0PSI4MCIgcng9IjMiIGZpbGw9IiM0NDQ0NDQiIC8+PC9nPjwhLS0gTmFpbCBQb2xpc2ggLS0+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjAwLCAxMDApIHJvdGF0ZSgtNSkiPjxyZWN0IHg9IjAiIHk9IjMwIiB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHJ4PSI1IiBmaWxsPSIjZmY5ZWJjIiAvPjxyZWN0IHg9IjUiIHk9IjM1IiB3aWR0aD0iMzAiIGhlaWdodD0iNTAiIHJ4PSIzIiBmaWxsPSIjZjA2YjljIiAvPjxyZWN0IHg9IjEwIiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSIjMzMzMzMzIiAvPjxyZWN0IHg9IjE1IiB5PSIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjNTU1NTU1IiAvPjwvZz48IS0tIFNtYWxsIGRlY29yYXRpdmUgZWxlbWVudHMgLS0+PGNpcmNsZSBjeD0iOTAiIGN5PSIxMjAiIHI9IjgiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuOCIgLz48Y2lyY2xlIGN4PSIxMjAiIGN5PSI5MCIgcj0iNSIgZmlsbD0iI2Q0YWZjOSIgb3BhY2l0eT0iMC44IiAvPjxjaXJjbGUgY3g9IjUwMCIgY3k9IjkwIiByPSI3IiBmaWxsPSIjZjhjM2Q4IiBvcGFjaXR5PSIwLjgiIC8+PGNpcmNsZSBjeD0iNTIwIiBjeT0iNDUwIiByPSI2IiBmaWxsPSIjZDRhZmM5IiBvcGFjaXR5PSIwLjgiIC8+PGNpcmNsZSBjeD0iNzAiIGN5PSI1MDAiIHI9IjkiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuOCIgLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSI1MjAiIHI9IjciIGZpbGw9IiNkNGFmYzkiIG9wYWNpdHk9IjAuOCIgLz48IS0tIFNtYWxsIHN0YXJzIC0tPjxwYXRoIGQ9Ik0zNzAsMTAwIEwzNzMsMTA3IEwzODAsMTA4IEwzNzUsMTEzIEwzNzYsMTIwIEwzNzAsMTE3IEwzNjQsMTIwIEwzNjUsMTEzIEwzNjAsMTA4IEwzNjcsMTA3IFoiIGZpbGw9IiNmOGMzZDgiIG9wYWNpdHk9IjAuNiIgLz48cGF0aCBkPSJNMjcwLDQ4MCBMMjcyLDQ4NSBMMjc4LDQ4NiBMMjc0LDQ5MCBMMjc1LDQ5NiBMMjcwLDQ5MyBMMjY1LDQ5NiBMMjY2LDQ5MCBMMjYyLDQ4NiBMMjY4LDQ4NSBaIiBmaWxsPSIjZjhjM2Q4IiBvcGFjaXR5PSIwLjYiIC8+PHBhdGggZD0iTTUzMCwyNTAgTDUzMiwyNTUgTDUzOCwyNTYgTDUzNCwyNjAgTDUzNSwyNjYgTDUzMCwyNjMgTDUyNSwyNjYgTDUyNiwyNjAgTDUyMiwyNTYgTDUyOCwyNTUgWiIgZmlsbD0iI2Y4YzNkOCIgb3BhY2l0eT0iMC42IiAvPjwvc3ZnPg=="
+              alt="Makeup elements background" 
+              className="w-full h-full object-cover"
             />
           </div>
 
@@ -273,9 +272,17 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="lg:w-1/2 mt-12 lg:mt-0 flex justify-center"
               >
-                <div className="relative w-full max-w-md h-96 border-8 border-white shadow-xl">
-                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                <div className="relative w-full max-w-md h-96">
+                  <div className="absolute inset-0 bg-pink-50 dark:bg-gray-800 flex items-center justify-center">
+                    <div className="p-10 border border-pink-300 bg-white dark:bg-gray-700 shadow-lg flex flex-col items-center justify-center h-full">
+                      <div className="w-16 h-16 rounded-full bg-accent mb-6 flex items-center justify-center text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.94 11a8.26 8.26 0 0 0-1.24-3.95 8.26 8.26 0 0 0-2.82-2.95 10.54 10.54 0 0 0-.87 3.99c0 1.3.39 2.55 1.3 3.57L12 18l-5.3-6.35a5.82 5.82 0 0 1 1.28-3.57c.29-.29.48-.67.55-1.08.31-1.96.76-3.2.76-3.2 1 2.81 2.64 5.15 4.32 7.34 1.41-1.78 2.84-3.75 3.86-5.85"/></svg>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-lg font-medium text-gray-800 dark:text-white">Book Now</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">Available for special events, weddings and editorials</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -296,9 +303,9 @@ export default function Home() {
                 <Button
                   variant={activeFilter === "all" ? "default" : "ghost"}
                   onClick={() => setActiveFilter("all")}
-                  className={`px-6 py-2 rounded-full ${
+                  className={`px-4 py-2 ${
                     activeFilter === "all" 
-                      ? "bg-primary text-white" 
+                      ? "bg-accent text-white" 
                       : "text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-primary"
                   }`}
                 >
@@ -307,9 +314,9 @@ export default function Home() {
                 <Button
                   variant={activeFilter === "bridal" ? "default" : "ghost"}
                   onClick={() => setActiveFilter("bridal")}
-                  className={`px-6 py-2 rounded-full ${
+                  className={`px-4 py-2 ${
                     activeFilter === "bridal" 
-                      ? "bg-primary text-white" 
+                      ? "bg-accent text-white" 
                       : "text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-primary"
                   }`}
                 >

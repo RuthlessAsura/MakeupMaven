@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileMenu } from "@/components/ui/mobile-menu";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +39,7 @@ export default function Navbar() {
         </a>
         
         <div className="hidden md:flex items-center space-x-8">
-          <nav className="flex items-center space-x-8 text-sm font-medium uppercase">
+          <nav className="flex items-center space-x-8 text-sm font-medium uppercase tracking-wider">
             {links.map((link) => (
               <a
                 key={link.href}
@@ -50,7 +51,15 @@ export default function Navbar() {
             ))}
           </nav>
           
-          <ThemeToggle />
+          <div className="flex items-center ml-4">
+            <ThemeToggle />
+            <Button 
+              asChild 
+              className="ml-4 bg-accent text-white rounded-none font-normal text-sm uppercase tracking-wider px-4 py-2"
+            >
+              <a href="#contact">Book Now</a>
+            </Button>
+          </div>
         </div>
         
         <MobileMenu links={links} />

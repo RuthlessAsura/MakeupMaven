@@ -47,9 +47,17 @@ export function MobileMenu({ links }: MobileMenuProps) {
                 </a>
               ))}
               
-              <div className="pt-2 flex items-center">
-                <span className="text-sm mr-3">Theme:</span>
-                <ThemeToggle />
+              <div className="pt-2 flex flex-col space-y-4">
+                <div className="flex items-center">
+                  <span className="text-sm mr-3">Theme:</span>
+                  <ThemeToggle />
+                </div>
+                <Button 
+                  asChild 
+                  className="bg-accent text-white rounded-none font-normal text-sm uppercase tracking-wider px-4 py-2 w-full"
+                >
+                  <a href="#contact">Book Now</a>
+                </Button>
               </div>
             </nav>
           </motion.div>
