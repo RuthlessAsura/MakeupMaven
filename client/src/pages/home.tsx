@@ -52,6 +52,7 @@ type TestimonialItem = {
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState<"all" | "bridal" | "editorial" | "everyday">("all");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { toast } = useToast();
   const parallaxRef = useRef<HTMLDivElement>(null);
 
@@ -130,9 +131,7 @@ export default function Home() {
   const onSubmit = (data: z.infer<typeof contactFormSchema>) => {
     contactMutation.mutate(data);
   };
-  
-  // Image modal state
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
 
   // Gallery data
   const galleryItems: GalleryItem[] = [
@@ -242,6 +241,28 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      
+      {/* Image Dialog for enlarged view */}
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent className="max-w-5xl p-0 overflow-hidden bg-transparent border-none">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            className="relative"
+          >
+            <DialogClose className="absolute top-2 right-2 z-20 rounded-full p-2 bg-black bg-opacity-50 text-white hover:bg-opacity-70 transition-all">
+              <X size={20} />
+            </DialogClose>
+            <img 
+              src={selectedImage || ''} 
+              alt="Enlarged view" 
+              className="w-full h-auto max-h-[80vh] object-contain rounded-lg" 
+            />
+          </motion.div>
+        </DialogContent>
+      </Dialog>
       
       <main>
         {/* Hero Section */}
