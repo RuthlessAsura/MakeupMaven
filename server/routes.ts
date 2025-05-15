@@ -10,6 +10,8 @@ import adminRoutes from './routes/admin';
 import contentRoutes from './routes/content';
 import portfolioRoutes from './routes/portfolio';
 import servicesRoutes from './routes/services';
+import testimonialsRoutes from './routes/testimonials';
+import adminTestimonialsRoutes from './routes/admin-testimonials';
 import authRoutes from './routes/auth-simple';
 import { initializeWebsiteData } from './initData';
 
@@ -19,9 +21,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Register API routes
   app.use('/api/admin', adminRoutes);
+  app.use('/api/admin/testimonials', adminTestimonialsRoutes);
   app.use('/api/content', contentRoutes);
   app.use('/api/portfolio', portfolioRoutes);
   app.use('/api/services', servicesRoutes);
+  app.use('/api/testimonials', testimonialsRoutes);
   app.use('/api/auth', authRoutes);
   
   // Contact form submission endpoint
