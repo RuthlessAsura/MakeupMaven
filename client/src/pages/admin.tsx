@@ -60,48 +60,43 @@ type ServiceItem = {
   updatedAt: string;
 };
 
+import AdminLogin from "@/components/admin-login";
+
 export default function AdminDashboard() {
-  const [apiKey, setApiKey] = useState(localStorage.getItem("adminApiKey") || "");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const queryClient = useQueryClient();
 
   // Authentication state
-  const handleLogin = () => {
-    if (apiKey.trim() === "") {
-      toast({
-        title: "Error",
-        description: "Please enter an API key",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    localStorage.setItem("adminApiKey", apiKey);
-    setIsAuthenticated(true);
-    
-    toast({
-      title: "Success",
-      description: "You are now logged in",
-    });
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setApiKey("");
-    localStorage.removeItem("adminApiKey");
-  };
-
   useEffect(() => {
-    // Check if there's a saved API key
-    if (apiKey) {
+    // Check if there are stored credentials
+    const storedCredentials = localStorage.getItem("adminCredentials");
+    if (storedCredentials) {
       setIsAuthenticated(true);
     }
   }, []);
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("adminCredentials");
+    
+    toast({
+      title: "Uitgelogd",
+      description: "U bent succesvol uitgelogd",
+    });
+  };
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+    queryClient.invalidateQueries();
+  };
+
   // Custom headers for authenticated requests
-  const getAuthHeaders = () => ({
-    "X-API-Key": apiKey,
-  });
+  const getAuthHeaders = () => {
+    const storedCredentials = localStorage.getItem("adminCredentials");
+    return {
+      "Authorization": `Basic ${storedCredentials || ""}`,
+    };
+  };
 
   // Site Content Management
   const [selectedSection, setSelectedSection] = useState("hero");
@@ -378,33 +373,7 @@ export default function AdminDashboard() {
   };
 
   if (!isAuthenticated) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center p-8">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Admin Login</CardTitle>
-            <CardDescription>Enter your API key to access the admin dashboard</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="apiKey">API Key</Label>
-                <Input
-                  id="apiKey"
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="Enter your API key"
-                />
-              </div>
-              <Button className="w-full" onClick={handleLogin}>
-                Login
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
+    return <AdminLogin onLoginSuccess={handleLoginSuccess} />;
   }
 
   return (

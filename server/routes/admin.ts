@@ -7,12 +7,22 @@ const router = Router();
 
 // Simple admin authentication middleware
 const checkAdmin = async (req: Request, res: Response, next: Function) => {
-  // For now simple password-based authentication
-  // In a real app, you'd want to use proper authentication with sessions
-  const apiKey = req.headers['x-api-key'];
+  // Using a fixed set of credentials for admin access
+  // For now simple basic auth
+  const authHeader = req.headers.authorization;
   
-  if (!apiKey || apiKey !== process.env.ADMIN_API_KEY) {
+  if (!authHeader || !authHeader.startsWith('Basic ')) {
     return res.status(401).json({ error: 'Unauthorized' });
+  }
+  
+  // Extract credentials from Basic Auth header
+  const base64Credentials = authHeader.split(' ')[1];
+  const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
+  const [username, password] = credentials.split(':');
+  
+  // Fixed admin credentials
+  if (username !== 'admin' || password !== 'SarahCondrea2025') {
+    return res.status(401).json({ error: 'Invalid credentials' });
   }
   
   next();
