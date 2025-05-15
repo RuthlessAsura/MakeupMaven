@@ -210,27 +210,11 @@ export default function Home() {
     price: item.price
   }));
 
-  // Testimonials data
-  const testimonials: TestimonialItem[] = [
-    {
-      id: 1,
-      quote: "Elena made me feel so beautiful on my wedding day. Her artistry is incredible, and she knew exactly what would complement my features and dress.",
-      name: "Sarah Johnson",
-      role: "Bridal Client"
-    },
-    {
-      id: 2,
-      quote: "The makeup lesson I had with Elena was eye-opening! She taught me techniques I now use every day, and I finally understand how to work with my eye shape.",
-      name: "Michelle Lee",
-      role: "Makeup Lesson Client"
-    },
-    {
-      id: 3,
-      quote: "As a photographer, I've worked with many makeup artists, but Elena stands out for her attention to detail and ability to create camera-perfect looks every time.",
-      name: "James Wilson",
-      role: "Photographer"
-    }
-  ];
+  // Fetch testimonials from API
+  const { data: testimonialsData = [] } = useQuery({
+    queryKey: ["/api/testimonials"],
+    queryFn: getQueryFn({ on401: "returnNull" })
+  });
 
   // Filter gallery items based on active filter
   const filteredGalleryItems = activeFilter === "all" 
@@ -535,22 +519,28 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="bg-gray-50 dark:bg-gray-700 shadow-lg scroll-reveal">
-                  <CardContent className="p-8">
-                    <div className="flex items-center mb-4">
-                      <Quote className="h-6 w-6 text-primary" />
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6">{testimonial.quote}</p>
-                    <div className="flex items-center">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</h4>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+              {testimonialsData && testimonialsData.length > 0 ? (
+                testimonialsData.map((testimonial: TestimonialItem) => (
+                  <Card key={testimonial.id} className="bg-gray-50 dark:bg-gray-700 shadow-lg scroll-reveal">
+                    <CardContent className="p-8">
+                      <div className="flex items-center mb-4">
+                        <Quote className="h-6 w-6 text-primary" />
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                      <p className="text-gray-600 dark:text-gray-300 mb-6">{testimonial.quote}</p>
+                      <div className="flex items-center">
+                        <div>
+                          <h4 className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</h4>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-10">
+                  <p className="text-gray-500 dark:text-gray-400">Loading testimonials...</p>
+                </div>
+              )}
             </div>
           </div>
         </section>
