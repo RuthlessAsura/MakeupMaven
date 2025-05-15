@@ -272,9 +272,22 @@ export default function AdminDashboard() {
   const [selectedServiceItem, setSelectedServiceItem] = useState<ServiceItem | null>(null);
   const [isServiceDialogOpen, setIsServiceDialogOpen] = useState(false);
 
+  // Testimonials Management
+  const [selectedTestimonialItem, setSelectedTestimonialItem] = useState<TestimonialItem | null>(null);
+  const [isTestimonialDialogOpen, setIsTestimonialDialogOpen] = useState(false);
+
   const { data: servicesData = [], isLoading: isLoadingServices } = useQuery<ServiceItem[]>({
     queryKey: ['/api/admin/services'],
     queryFn: getQueryFn<ServiceItem[]>({ 
+      on401: "returnNull", 
+      customHeaders: getAuthHeaders()
+    }),
+    enabled: isAuthenticated,
+  });
+  
+  const { data: testimonialsData = [], isLoading: isLoadingTestimonials } = useQuery<TestimonialItem[]>({
+    queryKey: ['/api/admin/testimonials'],
+    queryFn: getQueryFn<TestimonialItem[]>({ 
       on401: "returnNull", 
       customHeaders: getAuthHeaders()
     }),
@@ -382,6 +395,108 @@ export default function AdminDashboard() {
       deleteServiceMutation.mutate(id);
     }
   };
+  
+  // Testimonial mutations
+  const createTestimonialMutation = useMutation({
+    mutationFn: async (item: Omit<TestimonialItem, 'id' | 'createdAt' | 'updatedAt'>) => {
+      return apiRequest('/api/admin/testimonials', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(item),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/testimonials'] });
+      setIsTestimonialDialogOpen(false);
+      setSelectedTestimonialItem(null);
+      toast({
+        title: "Success",
+        description: "Testimonial created successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create testimonial",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateTestimonialMutation = useMutation({
+    mutationFn: async (item: Partial<TestimonialItem> & { id: number }) => {
+      return apiRequest(`/api/admin/testimonials/${item.id}`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(item),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/testimonials'] });
+      setIsTestimonialDialogOpen(false);
+      setSelectedTestimonialItem(null);
+      toast({
+        title: "Success",
+        description: "Testimonial updated successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to update testimonial",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteTestimonialMutation = useMutation({
+    mutationFn: async (id: number) => {
+      return apiRequest(`/api/admin/testimonials/${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/testimonials'] });
+      toast({
+        title: "Success",
+        description: "Testimonial deleted successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete testimonial",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleCreateTestimonial = () => {
+    if (!selectedTestimonialItem) return;
+    
+    const item = {
+      quote: selectedTestimonialItem.quote,
+      name: selectedTestimonialItem.name,
+      role: selectedTestimonialItem.role,
+      order: selectedTestimonialItem.order,
+      active: selectedTestimonialItem.active,
+    };
+    
+    createTestimonialMutation.mutate(item);
+  };
+
+  const handleUpdateTestimonial = () => {
+    if (!selectedTestimonialItem) return;
+    
+    updateTestimonialMutation.mutate(selectedTestimonialItem);
+  };
+
+  const handleDeleteTestimonial = (id: number) => {
+    if (confirm("Are you sure you want to delete this testimonial?")) {
+      deleteTestimonialMutation.mutate(id);
+    }
+  };
 
   if (!isAuthenticated) {
     return <AdminLogin onLoginSuccess={handleLoginSuccess} />;
@@ -397,10 +512,11 @@ export default function AdminDashboard() {
       </div>
 
       <Tabs defaultValue="content">
-        <TabsList className="mb-8 grid w-full grid-cols-3">
+        <TabsList className="mb-8 grid w-full grid-cols-4">
           <TabsTrigger value="content">Site Content</TabsTrigger>
           <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
           <TabsTrigger value="services">Services</TabsTrigger>
+          <TabsTrigger value="testimonials">Client Love</TabsTrigger>
         </TabsList>
 
         {/* Site Content Tab */}
