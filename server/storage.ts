@@ -59,6 +59,11 @@ export class DatabaseStorage implements IStorage {
     const result = await db.insert(users).values(insertUser).returning();
     return result[0];
   }
+  
+  async getAdminUsers(): Promise<User[]> {
+    const result = await db.select().from(users).where(eq(users.isAdmin, true));
+    return result;
+  }
 
   // Contact form methods
   async createContactSubmission(insertContact: InsertContact): Promise<ContactSubmission> {

@@ -21,7 +21,7 @@ const checkAdmin = async (req: Request, res: Response, next: Function) => {
   const [username, password] = credentials.split(':');
   
   // Fixed admin credentials
-  if (username !== 'admin' || password !== 'SarahCondrea2025') {
+  if (username !== 'admin' || password !== 'admin123') {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
   
