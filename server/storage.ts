@@ -3,7 +3,8 @@ import {
   contactSubmissions, type ContactSubmission, type InsertContact,
   siteContent, type SiteContent, type InsertSiteContent,
   portfolioItems, type PortfolioItem, type InsertPortfolioItem,
-  serviceItems, type ServiceItem, type InsertServiceItem
+  serviceItems, type ServiceItem, type InsertServiceItem,
+  testimonialItems, type TestimonialItem, type InsertTestimonialItem
 } from "@shared/schema";
 import { db } from './db';
 import { eq, and, desc } from 'drizzle-orm';
@@ -41,6 +42,14 @@ export interface IStorage {
   createServiceItem(item: InsertServiceItem): Promise<ServiceItem>;
   updateServiceItem(id: number, item: Partial<InsertServiceItem>): Promise<ServiceItem | undefined>;
   deleteServiceItem(id: number): Promise<boolean>;
+  
+  // Testimonial methods
+  getAllTestimonialItems(): Promise<TestimonialItem[]>;
+  getActiveTestimonialItems(): Promise<TestimonialItem[]>;
+  getTestimonialItemById(id: number): Promise<TestimonialItem | undefined>;
+  createTestimonialItem(item: InsertTestimonialItem): Promise<TestimonialItem>;
+  updateTestimonialItem(id: number, item: Partial<InsertTestimonialItem>): Promise<TestimonialItem | undefined>;
+  deleteTestimonialItem(id: number): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -179,6 +188,45 @@ export class DatabaseStorage implements IStorage {
   
   async deleteServiceItem(id: number): Promise<boolean> {
     const result = await db.delete(serviceItems).where(eq(serviceItems.id, id)).returning();
+    return result.length > 0;
+  }
+
+  // Testimonial methods
+  async getAllTestimonialItems(): Promise<TestimonialItem[]> {
+    return await db.select().from(testimonialItems).orderBy(testimonialItems.order);
+  }
+  
+  async getActiveTestimonialItems(): Promise<TestimonialItem[]> {
+    return await db.select().from(testimonialItems)
+      .where(eq(testimonialItems.active, true))
+      .orderBy(testimonialItems.order);
+  }
+  
+  async getTestimonialItemById(id: number): Promise<TestimonialItem | undefined> {
+    const result = await db.select().from(testimonialItems).where(eq(testimonialItems.id, id));
+    return result[0];
+  }
+  
+  async createTestimonialItem(item: InsertTestimonialItem): Promise<TestimonialItem> {
+    const result = await db.insert(testimonialItems)
+      .values(item)
+      .returning();
+    return result[0];
+  }
+  
+  async updateTestimonialItem(id: number, item: Partial<InsertTestimonialItem>): Promise<TestimonialItem | undefined> {
+    const result = await db.update(testimonialItems)
+      .set({
+        ...item,
+        updatedAt: new Date()
+      })
+      .where(eq(testimonialItems.id, id))
+      .returning();
+    return result[0];
+  }
+  
+  async deleteTestimonialItem(id: number): Promise<boolean> {
+    const result = await db.delete(testimonialItems).where(eq(testimonialItems.id, id)).returning();
     return result.length > 0;
   }
 }

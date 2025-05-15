@@ -103,3 +103,25 @@ export const insertServiceItemSchema = createInsertSchema(serviceItems).pick({
 
 export type InsertServiceItem = z.infer<typeof insertServiceItemSchema>;
 export type ServiceItem = typeof serviceItems.$inferSelect;
+
+export const testimonialItems = pgTable("testimonial_items", {
+  id: serial("id").primaryKey(),
+  quote: text("quote").notNull(),
+  name: varchar("name", { length: 200 }).notNull(),
+  role: varchar("role", { length: 200 }).notNull(),
+  order: integer("order").default(0),
+  active: boolean("active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertTestimonialItemSchema = createInsertSchema(testimonialItems).pick({
+  quote: true,
+  name: true,
+  role: true,
+  order: true,
+  active: true,
+});
+
+export type InsertTestimonialItem = z.infer<typeof insertTestimonialItemSchema>;
+export type TestimonialItem = typeof testimonialItems.$inferSelect;

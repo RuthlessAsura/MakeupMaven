@@ -34,7 +34,7 @@ type GalleryItem = {
   image: string;
   title: string;
   description: string;
-  category: "bridal" | "editorial" | "everyday";
+  category: "eyebrows" | "makeup" | "lashes";
 };
 
 type ServiceItem = {
@@ -53,7 +53,7 @@ type TestimonialItem = {
 };
 
 export default function Home() {
-  const [activeFilter, setActiveFilter] = useState<"all" | "bridal" | "editorial" | "everyday">("all");
+  const [activeFilter, setActiveFilter] = useState<"all" | "eyebrows" | "makeup" | "lashes">("all");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { toast } = useToast();
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -198,7 +198,7 @@ export default function Home() {
     image: item.imageUrl,
     title: item.title,
     description: item.description,
-    category: item.category as "bridal" | "editorial" | "everyday"
+    category: item.category as "eyebrows" | "makeup" | "lashes"
   }));
 
   // Convert database service items to view models
@@ -365,37 +365,37 @@ export default function Home() {
                   All
                 </Button>
                 <Button
-                  variant={activeFilter === "bridal" ? "default" : "ghost"}
-                  onClick={() => setActiveFilter("bridal")}
+                  variant={activeFilter === "eyebrows" ? "default" : "ghost"}
+                  onClick={() => setActiveFilter("eyebrows")}
                   className={`px-4 py-2 ${
-                    activeFilter === "bridal" 
+                    activeFilter === "eyebrows" 
                       ? "bg-accent text-white" 
                       : "text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-primary"
                   }`}
                 >
-                  Bridal
+                  Eyebrows
                 </Button>
                 <Button
-                  variant={activeFilter === "editorial" ? "default" : "ghost"}
-                  onClick={() => setActiveFilter("editorial")}
+                  variant={activeFilter === "makeup" ? "default" : "ghost"}
+                  onClick={() => setActiveFilter("makeup")}
                   className={`px-4 py-2 ${
-                    activeFilter === "editorial" 
+                    activeFilter === "makeup" 
                       ? "bg-accent text-white" 
                       : "text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-primary"
                   }`}
                 >
-                  Editorial
+                  Makeup
                 </Button>
                 <Button
-                  variant={activeFilter === "everyday" ? "default" : "ghost"}
-                  onClick={() => setActiveFilter("everyday")}
+                  variant={activeFilter === "lashes" ? "default" : "ghost"}
+                  onClick={() => setActiveFilter("lashes")}
                   className={`px-4 py-2 ${
-                    activeFilter === "everyday" 
+                    activeFilter === "lashes" 
                       ? "bg-accent text-white" 
                       : "text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-primary"
                   }`}
                 >
-                  Everyday
+                  Lashes
                 </Button>
               </div>
             </div>

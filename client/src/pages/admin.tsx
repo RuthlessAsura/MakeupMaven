@@ -518,7 +518,7 @@ export default function AdminDashboard() {
                           title: "",
                           description: "",
                           imageUrl: "",
-                          category: "bridal",
+                          category: "eyebrows",
                           order: 0,
                           active: true,
                           createdAt: "",
@@ -594,9 +594,9 @@ export default function AdminDashboard() {
                               })
                             }
                           >
-                            <option value="bridal">Bridal</option>
-                            <option value="editorial">Editorial</option>
-                            <option value="everyday">Everyday</option>
+                            <option value="eyebrows">Eyebrows</option>
+                            <option value="makeup">Makeup</option>
+                            <option value="lashes">Lashes</option>
                           </select>
                         </div>
                         <div className="grid gap-2">
